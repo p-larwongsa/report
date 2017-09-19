@@ -1,0 +1,111 @@
+{%extends "layout/layout.html"%}
+{%block content%}
+
+<div class="container">
+<h3>Flowto Project</h3>
+<hr>
+  <div class="row fluid">
+  <div class="col-md-12">
+    <div  align="right">
+      <button type="button" class="btn btn-info" id="add_button" data-toggle="modal" data-target="#addProject">สร้าง</button>
+  </div>
+  </br>
+  <table class="table table-striped">
+    <tr>
+
+        <th>หัวข้อ</th>
+        <th>ลบ</th>
+    </tr>
+
+    {% for list in lists %}
+
+    <tr>
+  
+      <td><a href="/TheProject?id={{list.id}}">{{list.name}}</a></td>  
+      <td><button class="btn btn-danger btn-xs" > <span class="glyphicon glyphicon-trash" id='delete' onClick="deleteProject({{list.id}})"></span></button></td>
+
+    </tr>
+    
+    {% endfor %}
+  </table>
+  </div>
+</div> <!-- //row fluid -->
+
+</div> <!-- The first class container -->
+
+<!-- Modal Add Form -->
+  <div class="modal fade" id="addProject" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">สร้างโปรเจค</h4>
+        </div>
+        <!-- Modal body-->
+        <form method="post" action="/add">
+        <div class="modal-body">
+              <div class="form-group">
+                <label for="title"><span class="glyphicon glyphicon-list-alt"></span> ชื่อโปรเจค</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="ใส่ชื่อโปรเจค">
+              </div>
+        </div> <!-- //Modal body-->
+
+        <div class="modal-footer">
+          <input type="hidden" name="project_id" id="project_id" />
+          <input type="submit" class="btn btn-primary" id="action" name="action" value="สร้าง" />
+          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+       </form> <!-- form -->
+      </div> <!-- //Modal content-->
+    </div>
+  </div>  <!-- //Modal Add Form -->
+
+   <!-- Modal Delete Form -->
+  <div class="modal fade" id="delProject" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">ลบ</h4>
+        </div>
+        <!-- Modal body-->
+        <form method="post" action="/delete">
+        <div class="modal-body">
+          <p id="Delbody" value='ยืนยันการลบรายงาน'></p>
+        </div> <!-- //Modal body-->
+        <div class="modal-footer">
+          <input type="hidden" name="delid" id="delid" />
+          <input type="submit" class="btn btn-primary" id="action" name="action" value="ลบ" />
+          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+       </form> <!-- form -->
+
+      </div> <!-- //Modal content-->
+    </div>
+  </div>  <!-- //Modal Delete Form -->
+
+<script>
+
+  function deleteProject(id){
+    $.ajax({
+            url: '/chkdelete',
+            type: 'GET',
+            data: {id : id},
+            //contentType: 'application/json',
+            dataType: 'json',
+           success: function(response) {
+              $('#delProject').modal('show');
+              $('.modal-title').text('ลบรายงาน');
+              $('#Delbody').text('ยืนยันการลบรายงาน '+ response.name);
+              $('#delid').val(response.id);
+              $('#action').val('ลบ');
+
+            }
+        });
+  }
+
+</script>
+
+{%endblock%}

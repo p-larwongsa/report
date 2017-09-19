@@ -1,0 +1,93 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "ckeditor",
+        "scope": null,
+        "escapedName": "ckeditor",
+        "name": "ckeditor",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "d:\\code\\user-login\\ck"
+    ]
+  ],
+  "_from": "ckeditor@latest",
+  "_id": "ckeditor@4.7.2",
+  "_inCache": true,
+  "_location": "/ckeditor",
+  "_nodeVersion": "6.8.1",
+  "_npmOperationalInternal": {
+    "host": "s3://npm-registry-packages",
+    "tmp": "tmp/ckeditor-4.7.2.tgz_1502989398320_0.2723954056855291"
+  },
+  "_npmUser": {
+    "name": "cksource",
+    "email": "npm@cksource.com"
+  },
+  "_npmVersion": "3.10.8",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "ckeditor",
+    "scope": null,
+    "escapedName": "ckeditor",
+    "name": "ckeditor",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/ckeditor/-/ckeditor-4.7.2.tgz",
+  "_shasum": "d4a603d4e4c1d0f0980b858cd0d90308ffc9a60b",
+  "_shrinkwrap": null,
+  "_spec": "ckeditor",
+  "_where": "d:\\code\\user-login\\ck",
+  "author": {
+    "name": "CKSource",
+    "url": "http://cksource.com/"
+  },
+  "bugs": {
+    "url": "http://dev.ckeditor.com"
+  },
+  "dependencies": {},
+  "description": "JavaScript WYSIWYG web text editor.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "d4a603d4e4c1d0f0980b858cd0d90308ffc9a60b",
+    "tarball": "https://registry.npmjs.org/ckeditor/-/ckeditor-4.7.2.tgz"
+  },
+  "gitHead": "e1db4f159d7743c076e464ce90dc8b421ebc8ef0",
+  "homepage": "http://ckeditor.com",
+  "keywords": [
+    "ckeditor",
+    "fckeditor",
+    "editor",
+    "wysiwyg",
+    "html",
+    "richtext",
+    "text",
+    "javascript"
+  ],
+  "license": "(GPL-2.0 OR LGPL-2.1 OR MPL-1.1)",
+  "main": "ckeditor.js",
+  "maintainers": [
+    {
+      "name": "cksource",
+      "email": "npm@cksource.com"
+    }
+  ],
+  "name": "ckeditor",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ckeditor/ckeditor-releases.git"
+  },
+  "scripts": {},
+  "version": "4.7.2"
+}

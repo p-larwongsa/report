@@ -1,0 +1,381 @@
+{%extends "layout/layout.html"%}
+{%block content%}
+
+<h3 align="center">แบบฟอร์มติดตามมาตราการสร้างการรับรู้และประชาสัมพันธ์</h3>  
+<h4 align="center">โครงการสร้างการรับรู้และเสริมสร้างการเรียนรู้แก่เกษตรกร เพื่อลดความเสี่ยงจากภัยแล้ง</h4>
+<hr>
+
+<div  align="right">
+      <button type="button" class="btn btn-info" id="add_form1">เพิ่ม</button>
+  </div>
+  </br>
+<table id="form1table" name="form1table" class="display" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th rowspan="3">หน่วยงาน</th>
+        <th rowspan="3">โครงการชลประทาน</th>
+        <th rowspan="3">จังหวัด</th> 
+        <th rowspan="3">รอบรายงาน</th>
+        <th colspan="4"><center>ผลการดำเนินการ</center></th>
+      </tr>
+      <tr>     
+        <th colspan="2"><center>ศ.พ.ก.</center></th>
+        <th colspan="2"><center>JMC</center></th>
+        <th rowspan="2"><center>ข่าวประชาสัมพันธ์อื่นๆ (ครั้ง)</center></th>
+        <th rowspan="2"><center>ภาพถ่ายการลงพื้นที่</center></th>
+        <th rowspan="2"><center>แก้ไขโดย</center></th>
+        <th rowspan="2"><center>แก้ไขล่าสุด</center></th>
+        <th rowspan="2"><center>แก้ไข/ ลบ</center></th>
+
+      </tr>
+      <tr>     
+        <th><center>ครั้ง</center></th>
+        <th><center>เกษตรกร(คน)</center></th>
+        <th><center>ครั้ง</center></th>
+        <th><center>เกษตรกร(คน)</center></th>
+      </tr>
+    </thead>
+  </table>
+<!--</div>-->
+
+
+ <!-- Modal Edit Form -->
+  <div class="modal fade" id="form1" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title" value="แก้ไขรายงาน"></h4>
+        </div>
+        <!-- Modal body-->
+        <div class="modal-body">
+
+  <fieldset class="form-group">
+  <h3 align="center">แบบฟอร์มติดตามมาตราการสร้างการรับรู้และประชาสัมพันธ์</h3>  
+  <h4 align="center">โครงการสร้างการรับรู้และเสริมสร้างการเรียนรู้แก่เกษตรกร เพื่อลดความเสี่ยงจากภัยแล้ง</h4>
+  <hr>  
+  
+  <h5>กำหนดให้รายงานผลการดำเนินการตามหัวข้อดังต่อไปนี้</h5> 
+  <p>๑. การติดตามสถานการณ์น้ำและเตรียมการรองรับภัยแล้ง</p> 
+  <ul>
+    <li>การรับรู้สถานการณ์น้ำ</li>
+    <li>วิธีการปรับตัว</li>
+    <li>วิธีลดผลกระทบจากภัยแล้ง</li>
+  </ul>      
+  <p>๒. การลงพื้นที่ชี้แจงเกษตรกรเพื่อสร้างความเข้าใจสถานการณ์น้ำ</p> 
+  <ul>
+    <li>การรับรู้สถานการณ์น้ำ</li>
+    <li>วิธีการปรับตัว</li>
+    <li>วิธีลดผลกระทบจากภัยแล้ง</li>
+  </ul>        
+ <!-- <h4>การลงพื้นที่ชี้แจงเกษตรกรเพื่อสร้างความเข้าใจสถานการณ์น้ำ</h4>
+  <h4>รอบวันที่ :  </h4>  -->
+  </fieldset>
+  
+  <form action="/add_form1" method="post" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="reportTime">รอบวันที่</label> : 
+    <input type="text" class="form-control" id="reportTime" name="reportTime" readonly />
+  </div>
+
+  <div class="form-group">
+    <label for="InputOfficeName">สำนักงานชลประทานที่</label> : 
+    <input type="text" class="form-control" id="InputOfficeName" name="InputOfficeName" value="officeName" readonly />
+  </div>
+  <div class="form-group">
+    <label for="InputAgencyName">โครงการชลประทาน</label> : 
+    <input type="text" class="form-control" id="InputAgencyName" name="InputAgencyName" value="agencyName" readonly />
+  </div>
+
+  <div class="form-group">
+    <label for="province">จังหวัด</label> : 
+    <select class="selectpicker" id="province" name="province">
+      <option value="" selected>--------- เลือกจังหวัด ---------</option>
+      <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+      <option value="กระบี่">กระบี่ </option>
+      <option value="กาญจนบุรี">กาญจนบุรี </option>
+      <option value="กาฬสินธุ์">กาฬสินธุ์ </option>
+      <option value="กำแพงเพชร">กำแพงเพชร </option>
+      <option value="ขอนแก่น">ขอนแก่น</option>
+      <option value="จันทบุรี">จันทบุรี</option>
+      <option value="ฉะเชิงเทรา">ฉะเชิงเทรา </option>
+      <option value="ชัยนาท">ชัยนาท </option>
+      <option value="ชัยภูมิ">ชัยภูมิ </option>
+      <option value="ชุมพร">ชุมพร </option>
+      <option value="ชลบุรี">ชลบุรี </option>
+      <option value="เชียงใหม่">เชียงใหม่ </option>
+      <option value="เชียงราย">เชียงราย </option>
+      <option value="ตรัง">ตรัง </option>
+      <option value="ตราด">ตราด </option>
+      <option value="ตาก">ตาก </option>
+      <option value="นครนายก">นครนายก </option>
+      <option value="นครปฐม">นครปฐม </option>
+      <option value="นครพนม">นครพนม </option>
+      <option value="นครราชสีมา">นครราชสีมา </option>
+      <option value="นครศรีธรรมราช">นครศรีธรรมราช </option>
+      <option value="นครสวรรค์">นครสวรรค์ </option>
+      <option value="นราธิวาส">นราธิวาส </option>
+      <option value="น่าน">น่าน </option>
+      <option value="นนทบุรี">นนทบุรี </option>
+      <option value="บึงกาฬ">บึงกาฬ</option>
+      <option value="บุรีรัมย์">บุรีรัมย์</option>
+      <option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์ </option>
+      <option value="ปทุมธานี">ปทุมธานี </option>
+      <option value="ปราจีนบุรี">ปราจีนบุรี </option>
+      <option value="ปัตตานี">ปัตตานี </option>
+      <option value="พะเยา">พะเยา </option>
+      <option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา </option>
+      <option value="พังงา">พังงา </option>
+      <option value="พิจิตร">พิจิตร </option>
+      <option value="พิษณุโลก">พิษณุโลก </option>
+      <option value="เพชรบุรี">เพชรบุรี </option>
+      <option value="เพชรบูรณ์">เพชรบูรณ์ </option>
+      <option value="แพร่">แพร่ </option>
+      <option value="พัทลุง">พัทลุง </option>
+      <option value="ภูเก็ต">ภูเก็ต </option>
+      <option value="มหาสารคาม">มหาสารคาม </option>
+      <option value="มุกดาหาร">มุกดาหาร </option>
+      <option value="แม่ฮ่องสอน">แม่ฮ่องสอน </option>
+      <option value="ยโสธร">ยโสธร </option>
+      <option value="ยะลา">ยะลา </option>
+      <option value="ร้อยเอ็ด">ร้อยเอ็ด </option>
+      <option value="ระนอง">ระนอง </option>
+      <option value="ระยอง">ระยอง </option> 
+      <option value="ราชบุรี">ราชบุรี</option>
+      <option value="ลพบุรี">ลพบุรี </option>
+      <option value="ลำปาง">ลำปาง </option>
+      <option value="ลำพูน">ลำพูน </option>
+      <option value="เลย">เลย </option>
+      <option value="ศรีสะเกษ">ศรีสะเกษ</option>
+      <option value="สกลนคร">สกลนคร</option>
+      <option value="สงขลา">สงขลา </option>
+      <option value="สมุทรสาคร">สมุทรสาคร </option>
+      <option value="สมุทรปราการ">สมุทรปราการ </option>
+      <option value="สมุทรสงคราม">สมุทรสงคราม </option>
+      <option value="สระแก้ว">สระแก้ว </option>
+      <option value="สระบุรี">สระบุรี </option>
+      <option value="สิงห์บุรี">สิงห์บุรี </option>
+      <option value="สุโขทัย">สุโขทัย </option>
+      <option value="สุพรรณบุรี">สุพรรณบุรี </option>
+      <option value="สุราษฎร์ธานี">สุราษฎร์ธานี </option>
+      <option value="สุรินทร์">สุรินทร์ </option>
+      <option value="สตูล">สตูล </option>
+      <option value="หนองคาย">หนองคาย </option>
+      <option value="หนองบัวลำภู">หนองบัวลำภู </option>
+      <option value="อำนาจเจริญ">อำนาจเจริญ </option>
+      <option value="อุดรธานี">อุดรธานี </option>
+      <option value="อุตรดิตถ์">อุตรดิตถ์ </option>
+      <option value="อุทัยธานี">อุทัยธานี </option>
+      <option value="อุบลราชธานี">อุบลราชธานี</option>
+      <option value="อ่างทอง">อ่างทอง </option>
+    </select>
+  </div>
+ 
+  <fieldset class="form-group">
+  <legend>ผลการดำเนินการ</legend>
+  <!--ศ.พ.ก. checkbox -->
+  <div class="form-check1">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" id="check1" name="check1">
+      ศ.พ.ก.
+    </label>
+    <div class="container" >
+    <div class="col-xs-3" id="checkForm1" style="display:none">
+      <label for="SPK_time">ครั้ง</label>
+      <input type="text" class="form-control" id="SPK_time" name="SPK_time">
+
+      <label for="SPK_person">เกษตรกร(คน)</label>
+      <input type="text" class="form-control" id="SPK_person" name="SPK_person">
+    </div>
+    </div>
+  </div>
+  
+  <!--JMC checkbox -->
+  <div class="form-check2">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" id="check2" name="check2">
+      JMC
+    </label>
+    <div class="container" >
+    <div class="col-xs-3" id="checkForm2" style="display:none">
+      <label for="JMC_time">ครั้ง</label>
+      <input type="text" class="form-control" id="JMC_time" name="JMC_time">
+
+      <label for="JMC_person">เกษตรกร(คน)</label>
+      <input type="text" class="form-control" id="JMC_person" name="JMC_person">
+    </div>
+    </div>
+  </div>
+  </fieldset>
+
+  <div class="form-group">
+    <label for="InputNews">ข่าวประชาสัมพันธ์อื่นๆ(ครั้ง)</label>
+    <input type="text" class="form-control" id="InputNews" name="InputNews">
+  </div>
+  <div class="form-group">
+    <input type="file" name="photos" id="photos" multiple />
+  </div>
+  <div class="div_image" id="imgs"></div>
+        </div> <!-- //Modal body-->
+        <div class="modal-footer">
+          <input type="hidden" name="id" id="id" />
+          <input type="submit" id="btn_upload" name="btn_upload" class="btn btn-primary" value="ส่ง">
+          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+       </form> <!-- form -->
+
+      </div> <!-- //Modal content-->
+    </div>
+  </div>  <!-- //Modal Edit Form -->
+
+     <!-- Modal Delete Form -->
+  <div class="modal fade" id="delForm1" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">ลบ</h4>
+        </div>
+        <!-- Modal body-->
+        <form method="post" action="/delete_form1">
+        <div class="modal-body">
+          <p id="Delbody" value='ยืนยันการลบรายงาน'></p>
+        </div> <!-- //Modal body-->
+        <div class="modal-footer">
+          <input type="hidden" name="delId" id="delId" />
+          <input type="submit" class="btn btn-primary" value="ลบ" />
+          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+       </form> <!-- form -->
+
+      </div> <!-- //Modal content-->
+    </div>
+  </div>  <!-- //Modal Delete Form -->
+
+<script type="text/javascript">
+    var obj = {{ lists | dump | safe}};
+    console.log(obj);
+    $('#form1table').DataTable({
+      data: obj,
+      "columns": [
+      { data : "office_name" },
+      { data : "agency_name" }, 
+      { data : "province" },
+      { data : "form1_date" },
+      { data : "SPK_time" },
+      { data : "SPK_person" },
+      { data : "JMC_time" },
+      { data : "JMC_person" },
+      { data : "news" },
+      { data : "Uploads" , render: function(d){
+        return d.length ? d.length + ' '+'image(s)' : 'No image'; 
+          
+        }
+      },
+      { data : "user_edit" }, 
+      { data : "date", render : function(date){
+          return moment(date).format("YYYY:MM:DD HH:mm");
+        } 
+      },
+      { data : "id" , render : function(data) {
+        //return '<div class="input-group"><span class="input-group-btn"><a href="/edit_form1?id='+data+'" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a></span><span class="input-group-btn"><a href="/delete_form1?id='+data+'" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></span></div>'
+
+        return '<div class="input-group"><span class="input-group-btn"><a onClick="edit('+data+')" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a></span><span class="input-group-btn"><a onClick="deleteForm1('+data+')" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></span></div>'
+
+        }
+      }
+    ],
+      "pagingType": "full_numbers",
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+      ]
+
+    });
+
+
+$("#add_form1").click(function(){
+  $('#imgs').empty();
+  $('#form1').modal('show');
+  $('.modal-title').text('เพิ่มรายงาน');
+  $('#id').val('');
+  $('#date1').selectpicker('val','');
+  $('#province').selectpicker('val', '');
+  $('#InputOfficeName').val('{{user.officeName}}');
+  $('#InputAgencyName').val('{{user.agencyName}}');
+  $( '#check1' ).prop( "checked", false );      
+  $( '#check2' ).prop( "checked", false );
+  $('#SPK_time').val('');
+  $('#SPK_person').val('');   
+  $('#JMC_time').val('');
+  $('#JMC_person').val('');
+  $('#InputNews').val('');
+});
+
+  function deleteForm1(id) {
+    $.ajax({
+        url: '/chkform1',
+        type: 'GET',
+        data: {id : id},
+        dataType: 'json',
+       success: function(response) {
+          console.log(response);   
+          $('#delForm1').modal('show');
+          $('.modal-title').text('ลบรายงาน');
+          $('#Delbody').text('ยืนยันการลบรายงานนี้');
+          $('#delId').val(response.form1.id);
+          $('#action').val('ลบ');
+        }
+    });
+  }
+
+  $('#btn_upload').click(function() {
+    location.reload();
+  });
+  
+  function edit(id){
+    $.ajax({
+      url: '/chkform1',
+      type: 'GET',
+      data: {id : id}, 
+      //contentType: 'application/json',
+      dataType: 'json',
+     success: function(response) {
+       console.log(response);
+        $('#imgs').empty();
+        $('#form1').modal('show');
+        $('.modal-title').text('แก้ไขรายงาน');
+        $('#reportTime').val(response.form1.form1_date);
+        $('#id').val(response.form1.id);
+        $('#InputOfficeName').val(response.form1.office_name);
+        $('#InputAgencyName').val(response.form1.agency_name);
+        $('#province').selectpicker('val', response.form1.province);
+        //$( '#check1' ).prop( "checked", true );      
+        //$( '#check2' ).prop( "checked", true );
+        $('#SPK_time').val(response.form1.SPK_time);
+        $('#SPK_person').val(response.form1.SPK_person);
+        $('#JMC_time').val(response.form1.JMC_time);
+        $('#JMC_person').val(response.form1.JMC_person);
+        $('#InputNews').val(response.form1.news);
+        for(var j=0; j<response.image.length; j++){
+            console.log(response.image[j].form1_id);
+            $('.div_image').append('  <img src="' + response.image[j].path + '  " style="width: 200px; height: 100px"/>');                  
+          }
+        }
+      });
+    }
+
+  $('#check1').click(function() {
+  $("#checkForm1").toggle(this.checked);
+  });
+  $('#check2').click(function() {
+  $("#checkForm2").toggle(this.checked);
+  });
+
+</script>
+
+
+{%endblock%}
+

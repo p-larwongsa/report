@@ -1,0 +1,193 @@
+{%extends "layout/layout.html"%}
+{%block content%}
+
+<div class="container" >
+
+  <fieldset class="form-group">
+  <h3 align="center">แบบฟอร์มติดตามมาตราการสร้างการรับรู้และประชาสัมพันธ์</h3>  
+  <h4 align="center">โครงการสร้างการรับรู้และเสริมสร้างการเรียนรู้แก่เกษตรกร เพื่อลดความเสี่ยงจากภัยแล้ง</h4>
+  <hr>  
+  
+  <h5>กำหนดให้รายงานผลการดำเนินการตามหัวข้อดังต่อไปนี้</h5> 
+  <p>๑. การติดตามสถานการณ์น้ำและเตรียมการรองรับภัยแล้ง</p> 
+  <ul>
+    <li>การรับรู้สถานการณ์น้ำ</li>
+    <li>วิธีการปรับตัว</li>
+    <li>วิธีลดผลกระทบจากภัยแล้ง</li>
+  </ul>      
+  <p>๒. การลงพื้นที่ชี้แจงเกษตรกรเพื่อสร้างความเข้าใจสถานการณ์น้ำ</p> 
+  <ul>
+    <li>การรับรู้สถานการณ์น้ำ</li>
+    <li>วิธีการปรับตัว</li>
+    <li>วิธีลดผลกระทบจากภัยแล้ง</li>
+  </ul>        
+ <!-- <h4>การลงพื้นที่ชี้แจงเกษตรกรเพื่อสร้างความเข้าใจสถานการณ์น้ำ</h4>
+  <h4>รอบวันที่ :  </h4>  -->
+  </fieldset>
+
+  
+  <form action="/sendForm?form=form1" method="post" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="date1">รอบวันที่</label> : 
+    <select class="selectpicker" id="date1" name="date1">
+      <option value="" selected>--------- รอบวันที่ ---------</option>
+      <option value="12 September 2017">12 September 2017</option>
+      <option value="19 September 2017">19 September 2017</option>
+      <option value="26 September 2017">26 September 2017</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="InputOfficeName">สำนักงานชลประทานที่</label> : 
+    <input type="text" class="form-control" id="InputOfficeName" name="InputOfficeName" value="{{user.officeName}}" readonly />
+  </div>
+  <div class="form-group">
+    <label for="InputAgencyName">โครงการชลประทาน</label> : 
+    <input type="text" class="form-control" id="InputAgencyName" name="InputAgencyName" value="{{user.agencyName}}" readonly />
+  </div>
+
+  <div class="form-group">
+    <label for="province">จังหวัด</label> : 
+    <select class="selectpicker" id="province" name="province">
+      <option value="" selected>--------- เลือกจังหวัด ---------</option>
+      <option value="กรุงเทพมหานคร">กรุงเทพมหานคร</option>
+      <option value="กระบี่">กระบี่ </option>
+      <option value="กาญจนบุรี">กาญจนบุรี </option>
+      <option value="กาฬสินธุ์">กาฬสินธุ์ </option>
+      <option value="กำแพงเพชร">กำแพงเพชร </option>
+      <option value="ขอนแก่น">ขอนแก่น</option>
+      <option value="จันทบุรี">จันทบุรี</option>
+      <option value="ฉะเชิงเทรา">ฉะเชิงเทรา </option>
+      <option value="ชัยนาท">ชัยนาท </option>
+      <option value="ชัยภูมิ">ชัยภูมิ </option>
+      <option value="ชุมพร">ชุมพร </option>
+      <option value="ชลบุรี">ชลบุรี </option>
+      <option value="เชียงใหม่">เชียงใหม่ </option>
+      <option value="เชียงราย">เชียงราย </option>
+      <option value="ตรัง">ตรัง </option>
+      <option value="ตราด">ตราด </option>
+      <option value="ตาก">ตาก </option>
+      <option value="นครนายก">นครนายก </option>
+      <option value="นครปฐม">นครปฐม </option>
+      <option value="นครพนม">นครพนม </option>
+      <option value="นครราชสีมา">นครราชสีมา </option>
+      <option value="นครศรีธรรมราช">นครศรีธรรมราช </option>
+      <option value="นครสวรรค์">นครสวรรค์ </option>
+      <option value="นราธิวาส">นราธิวาส </option>
+      <option value="น่าน">น่าน </option>
+      <option value="นนทบุรี">นนทบุรี </option>
+      <option value="บึงกาฬ">บึงกาฬ</option>
+      <option value="บุรีรัมย์">บุรีรัมย์</option>
+      <option value="ประจวบคีรีขันธ์">ประจวบคีรีขันธ์ </option>
+      <option value="ปทุมธานี">ปทุมธานี </option>
+      <option value="ปราจีนบุรี">ปราจีนบุรี </option>
+      <option value="ปัตตานี">ปัตตานี </option>
+      <option value="พะเยา">พะเยา </option>
+      <option value="พระนครศรีอยุธยา">พระนครศรีอยุธยา </option>
+      <option value="พังงา">พังงา </option>
+      <option value="พิจิตร">พิจิตร </option>
+      <option value="พิษณุโลก">พิษณุโลก </option>
+      <option value="เพชรบุรี">เพชรบุรี </option>
+      <option value="เพชรบูรณ์">เพชรบูรณ์ </option>
+      <option value="แพร่">แพร่ </option>
+      <option value="พัทลุง">พัทลุง </option>
+      <option value="ภูเก็ต">ภูเก็ต </option>
+      <option value="มหาสารคาม">มหาสารคาม </option>
+      <option value="มุกดาหาร">มุกดาหาร </option>
+      <option value="แม่ฮ่องสอน">แม่ฮ่องสอน </option>
+      <option value="ยโสธร">ยโสธร </option>
+      <option value="ยะลา">ยะลา </option>
+      <option value="ร้อยเอ็ด">ร้อยเอ็ด </option>
+      <option value="ระนอง">ระนอง </option>
+      <option value="ระยอง">ระยอง </option> 
+      <option value="ราชบุรี">ราชบุรี</option>
+      <option value="ลพบุรี">ลพบุรี </option>
+      <option value="ลำปาง">ลำปาง </option>
+      <option value="ลำพูน">ลำพูน </option>
+      <option value="เลย">เลย </option>
+      <option value="ศรีสะเกษ">ศรีสะเกษ</option>
+      <option value="สกลนคร">สกลนคร</option>
+      <option value="สงขลา">สงขลา </option>
+      <option value="สมุทรสาคร">สมุทรสาคร </option>
+      <option value="สมุทรปราการ">สมุทรปราการ </option>
+      <option value="สมุทรสงคราม">สมุทรสงคราม </option>
+      <option value="สระแก้ว">สระแก้ว </option>
+      <option value="สระบุรี">สระบุรี </option>
+      <option value="สิงห์บุรี">สิงห์บุรี </option>
+      <option value="สุโขทัย">สุโขทัย </option>
+      <option value="สุพรรณบุรี">สุพรรณบุรี </option>
+      <option value="สุราษฎร์ธานี">สุราษฎร์ธานี </option>
+      <option value="สุรินทร์">สุรินทร์ </option>
+      <option value="สตูล">สตูล </option>
+      <option value="หนองคาย">หนองคาย </option>
+      <option value="หนองบัวลำภู">หนองบัวลำภู </option>
+      <option value="อำนาจเจริญ">อำนาจเจริญ </option>
+      <option value="อุดรธานี">อุดรธานี </option>
+      <option value="อุตรดิตถ์">อุตรดิตถ์ </option>
+      <option value="อุทัยธานี">อุทัยธานี </option>
+      <option value="อุบลราชธานี">อุบลราชธานี</option>
+      <option value="อ่างทอง">อ่างทอง </option>
+    </select>
+  </div>
+ 
+  <fieldset class="form-group">
+  <legend>ผลการดำเนินการ</legend>
+  <!--ศ.พ.ก. checkbox -->
+  <div class="form-check1">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" id="check1" name="check1">
+      ศ.พ.ก.
+    </label>
+    <div class="container" >
+    <div class="col-md-3" id="checkForm1" style="display:none">
+      <label for="SPK_time">ครั้ง</label>
+      <input type="text" class="form-control" id="SPK_time" name="SPK_time">
+
+      <label for="SPK_person">เกษตรกร(คน)</label>
+      <input type="text" class="form-control" id="SPK_person" name="SPK_person">
+    </div>
+    </div>
+  </div>
+  
+  <!--JMC checkbox -->
+  <div class="form-check2">
+    <label class="form-check-label">
+      <input type="checkbox" class="form-check-input" id="check2" name="check2">
+      JMC
+    </label>
+    <div class="container" >
+    <div class="col-md-3" id="checkForm2" style="display:none">
+      <label for="JMC_time">ครั้ง</label>
+      <input type="text" class="form-control" id="JMC_time" name="JMC_time">
+
+      <label for="JMC_person">เกษตรกร(คน)</label>
+      <input type="text" class="form-control" id="JMC_person" name="JMC_person">
+    </div>
+    </div>
+  </div>
+  </fieldset>
+
+  <div class="form-group">
+    <label for="InputNews">ข่าวประชาสัมพันธ์อื่นๆ(ครั้ง)</label>
+    <input type="text" class="form-control" id="InputNews" name="InputNews">
+  </div>
+  <div class="form-group">
+    <input type="file" name="photos" id="photos" multiple />
+  </div>
+
+  <div class="form-group">
+    <input type="submit" id="btn_upload" name="btn_upload" class="btn btn-primary" value="ส่ง">
+  </div>
+</form>
+</div> <!-- The first class container -->
+
+<!-- checkbox then show -->
+<script type="text/javascript">
+    $('#check1').click(function() {
+    $("#checkForm1").toggle(this.checked);
+    });
+    $('#check2').click(function() {
+    $("#checkForm2").toggle(this.checked);
+    });
+</script>
+{%endblock%}

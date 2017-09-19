@@ -1,0 +1,65 @@
+{
+  "name": "Form2",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "office_name": {
+      "type": "string"
+    },
+    "agency_name": {
+      "type": "string"
+    },
+    "introName": {
+      "type": "string"
+    },
+    "firstName": {
+      "type": "string"
+    },
+    "lastName": {
+      "type": "string"
+    },
+    "do": {
+      "type": "string"
+    },
+    "dont": {
+      "type": "string"
+    },
+    "reason": {
+      "type": "string"
+    },
+    "process1": {
+      "type": "string"
+    },
+    "process2": {
+      "type": "string"
+    },
+    "process3": {
+      "type": "string"
+    },
+    "process4": {
+      "type": "string"
+    },
+    "process5": {
+      "type": "string"
+    },
+    "note": {
+      "type": "string"
+    },
+    "form2_date": {
+      "type": "string"
+    },
+    "user_edit": {
+      "type": "string"
+    },
+    "date": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {},
+  "acls": [],
+  "methods": {}
+}

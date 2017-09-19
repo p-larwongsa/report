@@ -1,0 +1,29 @@
+{
+  "name": "Uploads",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "path": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "form1_id": {
+      "type": "number"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Form1": {
+      "type": "belongsTo",
+      "model": "Form1",
+      "foreignKey": "form1_id"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

@@ -1,0 +1,356 @@
+{%extends "layout/layout.html"%}
+{%block content%}
+
+<h3 align="center">รายงานความก้าวหน้าโครงการขยายผลการทำนาแบบเปียกสลับแห้งในเขตพื่นที่ชลประทาน</h3> 
+<hr>
+
+
+  <div  align="right">
+      <button type="button" class="btn btn-info" id="add">เพิ่ม</button>
+  </div>
+  </br>
+<table id="form2table" name="form2table" class="display" cellspacing="0" width="100%">
+    <thead>
+      <tr>
+        <th rowspan="2">รอบรายงาน</th>
+        <td colspan="3"><center>รายชื่อเกษตกร</center></td>
+        <td colspan="3"><center>ความก้าวหน้า</center></td>
+        <td colspan="5"><center>%ความก้าวหน้าของแต่ละขั้นตอน</center></td> 
+        <td rowspan="2"><center>หมายเหตุ</center></td>
+        <td rowspan="2"><center>แก้ไขโดย</center></td>
+        <td rowspan="2"><center>แก้ไขล่าสุด</center></td>
+        <td rowspan="2"><center>แก้ไข/ลบ</center></td>
+      </tr>
+      <tr>
+        <td><center>คำนำหน้าชื่อ</center></td>
+        <td><center>ชื่อ</center></td>
+        <td><center>นามสกุล</center></td>     
+        <td><center>ดำเนินการแล้ว</center></td>
+        <td><center>ยังไม่ดำเนินการ</center></td>
+        <td><center>เพราะ</center></td>
+        <td><center>ขั้นตอน1</center></td>
+        <td><center>ขั้นตอน2</center></td>
+        <td><center>ขั้นตอน3</center></td>
+        <td><center>ขั้นตอน4</center></td>
+        <td><center>ขั้นตอน5</center></td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+
+      </tr>
+    </tbody>
+  </table>
+
+
+ <div class="modal fade" id="form2" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">แก้ไขรายงาน</h4>
+        </div>
+        <!-- Modal body-->
+        <form action="/add_form2" method="post">
+        <div class="modal-body">
+
+          <fieldset class="form-group">
+          <h3 align="center">รายงานความก้าวหน้าโครงการขยายผลการทำนาแบบเปียกสลับแห้งในเขตพื้นที่ชลประทาน</h3>  
+          </fieldset>
+          <hr>
+          <div class="form-group">
+            <label for="reportTime">รอบวันที่</label> : 
+            <input type="text" class="form-control" id="reportTime" name="reportTime" readonly />
+          </div>
+          <div class="form-group">
+            <label for="InputOfficeName">สำนักงานชลประทานที่</label> : 
+            <input type="text" class="form-control" id="InputOfficeName" name="InputOfficeName" value="{{user.officeName}}" readonly />
+          </div>
+          <div class="form-group">
+            <label for="InputAgencyName">โครงการชลประทาน</label> : 
+            <input type="text" class="form-control" id="InputAgencyName" name="InputAgencyName" value="agencyName" readonly />
+          </div>
+
+          <fieldset class="form-group">
+          <legend>รายชื่อเกษตรกร</legend>
+          <div class="form-group">
+            <label for="introName">คำนำหน้าชื่อ</label> : 
+            <select class="selectpicker" data-live-search="true" id="introName" name="introName">
+              <option value="" selected>--- เลือกคำนำหน้าชื่อ ---</option>
+              <option value="นาย" >นาย</option>
+              <option value="นาง" >นาง</option>
+              <option value="นางสาว" >นางสาว</option>
+            </select>
+
+          </div>
+          <div class="form-group row">
+            <div class="col-md-4" id="checkForm1">
+              <label for="firstName">ชื่อ</label>
+              <input type="text" class="form-control" id="firstName" name="firstName" placeholder="ชื่อ" >
+
+              <label for="lastName">นามสกุล</label>
+              <input type="text" class="form-control" id="lastName" name="lastName" placeholder="นามสกุล">
+            </div>
+
+          </div>
+
+          <!-- ความก้าวหน้า -->
+          <fieldset class="form-group">
+          <legend>ความก้าวหน้า</legend>
+          <div class="form-checkDo">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="Do" name="Do">
+              ดำเนินการแล้ว
+            </label>    
+          </div>
+
+          <div class="form-checkDont">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="Dont" name="Dont">
+              ยังไม่ดำเนินการ
+            </label>
+              <div class="form-group" id="checkDont" style="display:none">
+                <label for="reason">เพราะ:</label>
+                <textarea class="form-control" rows="5" id="reason" name="reason"></textarea>
+              </div>
+            </div>
+          </fieldset>
+
+         <!-- % ความก้าวหน้า -->
+          <fieldset class="form-group">
+          <legend>เปอร์เซ็นความก้าวหน้าของแต่ละขั้นตอน</legend>
+            <div class="form-process1">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="ChkProcess1" name="ChkProcess1">
+              ขั้นตอนที่ 1
+            </label>
+              <div class="form-group" id="Process1" style="display:none">
+                <textarea class="form-control" rows="5" id="process1" name="process1"></textarea>
+              </div>
+          </div> <!-- /process 1 -->
+
+          <div class="form-process2">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="ChkProcess2" name="ChkProcess2">
+              ขั้นตอนที่ 2
+            </label>
+              <div class="form-group" id="Process2" style="display:none">
+                <textarea class="form-control" rows="5" id="process2" name="process2"></textarea>
+              </div>
+          </div> <!-- /process 2 -->
+
+          <div class="form-process3">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="ChkProcess3" name="ChkProcess3">
+              ขั้นตอนที่ 3
+            </label>
+              <div class="form-group" id="Process3" style="display:none">
+                <textarea class="form-control" rows="5" id="process3" name="process3"></textarea>
+              </div>
+          </div> <!-- /process 3 -->
+
+          <div class="form-process4">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="ChkProcess4" name="ChkProcess4">
+              ขั้นตอนที่ 4
+            </label>
+              <div class="form-group" id="Process4" style="display:none">
+                <textarea class="form-control" rows="5" id="process4" name="process4"></textarea>
+              </div>
+          </div> <!-- /process 4 -->
+
+          <div class="form-process5">
+            <label class="form-check-label">
+              <input type="checkbox" class="form-check-input" id="ChkProcess5" name="ChkProcess5">
+              ขั้นตอนที่ 5
+            </label>
+              <div class="form-group" id="Process5" style="display:none">
+                <textarea class="form-control" rows="5" id="process5" name="process5"></textarea>
+              </div>
+          </div> <!-- /process 3 -->
+
+          </fieldset>
+
+          <!-- หมายเหตุ -->
+          <fieldset class="form-group">
+          <legend>หมายเหตุ</legend>
+              <div class="form-group" >
+                <label for="note">หมายเหตุ:</label>
+                <textarea class="form-control" rows="5" id="note" name="note"></textarea>
+              </div>
+          </fieldset>
+
+
+        </div> <!-- //Modal body-->
+        <div class="modal-footer">
+          <input type="hidden" name="id" id="id" />
+          <input type="submit" id="btn_upload" name="btn_upload" class="btn btn-primary" value="ส่ง">
+          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+       </form> <!-- form -->
+
+      </div> <!-- //Modal content-->
+    </div>
+  </div>  <!-- //Modal Edit Form -->
+
+<!--</div>-->
+<!-- Modal Delete Form -->
+  <div class="modal fade" id="delForm2" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">ลบ</h4>
+        </div>
+        <!-- Modal body-->
+        <form method="post" action="/delete_form2">
+        <div class="modal-body">
+          <p id="Delbody" value='ยืนยันการลบรายงาน'></p>
+        </div> <!-- //Modal body-->
+        <div class="modal-footer">
+          <input type="hidden" name="Delid" id="Delid" />
+          <input type="submit" class="btn btn-primary" value="ลบ" />
+          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+       </form> <!-- form -->
+
+      </div> <!-- //Modal content-->
+    </div>
+  </div>  <!-- //Modal Delete Form -->
+
+<script type="text/javascript">
+    var obj = {{ lists | dump | safe}};
+    console.log(obj);
+    $('#form2table').DataTable({
+      data: obj,
+      "columns": [
+      { data : "form2_date" },
+      { data : "introName" },
+      { data : "firstName" },
+      { data : "lastName" },
+      { data : "do" },
+      { data : "dont" },
+      { data : "reason" },
+      { data : "process1" },
+      { data : "process2" },
+      { data : "process3" },
+      { data : "process4" },
+      { data : "process5" },
+      { data : "note" },
+      { data : "user_edit" }, 
+      { data : "date", render : function(date){
+          return moment(date).format("YYYY:MM:DD HH:mm");
+        } 
+      },
+       { data : "id" , render : function(data) {
+        return '<div class="input-group"><span class="input-group-btn"><a onClick="edit('+data+')" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a></span><span class="input-group-btn"><a onClick="deleteForm2('+data+')" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></span></div>'
+
+        }
+      }
+    ],
+      "pagingType": "full_numbers",
+      dom: 'Bfrtip',
+      buttons: [
+          'copy', 'csv', 'excel', 'pdf', 'print'
+      ]
+    });
+
+
+$('#add').click(function(){
+  $('#form2').modal('show');
+    $('#reportTime').val('');
+    $('#id').val('');
+    $('#InputOfficeName').val('{{user.officeName}}');
+    $('#InputAgencyName').val('{{user.agencyName}}');
+    $('#introName').selectpicker('val', '');
+    $('#firstName').val('');
+    $('#lastName').val('');
+    $('#Do').prop("checked", false);
+    $('#Dont').prop("checked", false);
+    $('#reason').val('');
+    $('#process1').val('');
+    $('#process2').val('');
+    $('#process3').val('');
+    $('#process4').val('');
+    $('#process5').val('');
+    $('#note').val('');
+});
+
+function deleteForm2(id) {
+  $.ajax({
+        url: '/chkform2',
+        type: 'GET',
+        data: {id : id},
+        dataType: 'json',
+       success: function(response) {
+          console.log(response);   
+          $('#delForm2').modal('show');
+          $('.modal-title').text('ลบรายงาน');
+          $('#Delbody').text('ยืนยันการลบรายงานนี้');
+          $('#Delid').val(response.id);
+          $('#action').val('ลบ');
+        }
+    });
+}
+
+
+function edit(id){
+  $.ajax({
+    url: '/chkform2',
+    type: 'GET',
+    data: {id : id},
+    dataType: 'json',
+    success: function(response){
+      console.log(response);
+      $('#form2').modal('show');
+      $('#reportTime').val(response.form2_date);
+      $('#id').val(response.id);
+      $('#introName').selectpicker('val', response.introName);
+      $('#firstName').val(response.firstName);
+      $('#lastName').val(response.lastName);
+      if(response.do == 'on'){
+        $('#Do').prop("checked", true);
+      }else{
+        $('#Do').prop("checked", false);
+      }
+      if(response.dont == 'on'){
+        $('#Dont').prop("checked", true);
+      }else{
+        $('#Dont').prop("checked", false);
+      }
+      $('#reason').val(response.reason);
+
+      $('#process1').val(response.process1);
+      $('#process2').val(response.process2);
+      $('#process3').val(response.process3);
+      $('#process4').val(response.process4);
+      $('#process5').val(response.process5);
+      $('#note').val(response.note);
+    }
+  });
+}
+
+    $('#Dont').click(function() {
+    $("#checkDont").toggle(this.checked);
+    });
+
+    $('#ChkProcess1').click(function() {
+    $("#Process1").toggle(this.checked);
+    });
+    $('#ChkProcess2').click(function() {
+    $("#Process2").toggle(this.checked);
+    });
+    $('#ChkProcess3').click(function() {
+    $("#Process3").toggle(this.checked);
+    });
+    $('#ChkProcess4').click(function() {
+    $("#Process4").toggle(this.checked);
+    });
+    $('#ChkProcess5').click(function() {
+    $("#Process5").toggle(this.checked);
+    });
+</script>
+	
+{%endblock%}

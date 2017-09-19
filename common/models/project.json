@@ -1,0 +1,29 @@
+{
+  "name": "Project",
+  "base": "PersistedModel",
+  "idInjection": true,
+  "options": {
+    "validateUpsert": true
+  },
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "user_id": {
+      "type": "number"
+    },
+    "project_date": {
+      "type": "date"
+    }
+  },
+  "validations": [],
+  "relations": {
+    "Report": {
+      "type": "hasMany",
+      "model": "Report",
+      "foreignKey": "projectId"
+    }
+  },
+  "acls": [],
+  "methods": {}
+}

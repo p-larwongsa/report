@@ -1,0 +1,109 @@
+{%extends "layout/layout.html"%}
+{%block content%}
+
+<div class="container">
+<h3>{{RPobj.name.projectName}}</h3>
+<hr>
+  <div class="row fluid">
+  <div class="col-md-12">
+    <div  align="right">
+      <button type="button" class="btn btn-info" id="add_button" data-toggle="modal" data-target="#addReport">เพิ่ม</button>
+  </div>
+  </br>
+  <table class="table table-striped">
+    <tr>
+        <th>หัวข้อ</th>
+        <th>แก้ไข</th>
+        <th>ลบ</th>
+    </tr>
+    {% for list in RPobj.data %}
+    <tr>
+      <td><a href="/view_report?id={{list.id}}">{{list.title}}</a></td>  
+      <td width="10"><a href="/modify?id={{list.id}}" class="btn btn-success btn-xs" role="button"><span class="glyphicon glyphicon-pencil" ></span></a></td>
+      <td><button class="btn btn-danger btn-xs" > <span class="glyphicon glyphicon-trash" id='delete' onClick="delReport({{list.id}})"></span></button></td>
+    </tr>
+    {% endfor %}
+  </table>
+  </div>
+</div> <!-- //row fluid -->
+
+</div> <!-- The first class container -->
+<!-- Modal Add Form -->
+  <div class="modal fade" id="addReport" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">เพิ่มรายงาน</h4>
+        </div>
+        <!-- Modal body-->
+        <form method="post" action="/addReport">
+        <div class="modal-body">
+              <div class="form-group">
+                <label for="title"><span class="glyphicon glyphicon-list-alt"></span> ชื่อรายงาน</label>
+                <input type="text" class="form-control" id="title" name="title" placeholder="ใส่ชื่อรายงาน">
+              </div>
+        </div> <!-- //Modal body-->
+
+        <div class="modal-footer">
+          <input type="hidden" name="project_id" id="project_id" value={{RPobj.meta.projectId}} />
+          <input type="submit" class="btn btn-primary" id="action" name="action" value="เพิ่ม"/>
+          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+       </form> <!-- form -->
+      </div> <!-- //Modal content-->
+    </div>
+  </div>  <!-- //Modal Add Form -->
+
+   <!-- Modal Delete Form -->
+  <div class="modal fade" id="deleteReport" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">ลบ</h4>
+        </div>
+        <!-- Modal body-->
+        <form method="post" action="/deleteReport">
+        <div class="modal-body">
+          <p id="Delbody" value='ยืนยันการลบรายงาน'></p>
+        </div> <!-- //Modal body-->
+        <div class="modal-footer">
+          <input type="hidden" name="delid" id="delid" />
+          <input type="hidden" name="pro_id" id="pro_id" />
+          <input type="submit" class="btn btn-primary" id="action1" name="action1" value="ลบ" />
+          <button type="button" class="btn btn-default" data-dismiss="modal">ปิด</button>
+        </div>
+       </form> <!-- form -->
+
+      </div> <!-- //Modal content-->
+    </div>
+  </div>  <!-- //Modal Delete Form -->
+
+<script>
+
+  function delReport(id){
+    console.log("delId"+id);
+    $.ajax({
+            url: '/chkdelRP',
+            type: 'GET',
+            data: {id : id},
+            //contentType: 'application/json',
+            dataType: 'json',
+           success: function(response) {
+            console.log(response);
+              $('#deleteReport').modal('show');
+              $('.modal-title').text('ลบรายงาน');
+              $('#Delbody').text('ยืนยันการลบรายงาน '+response.title);
+              $('#delid').val(response.id);
+              $('#pro_id').val(response.projectId);
+              $('#action1').val('ลบ');
+            }
+        });
+  }
+
+</script>
+
+{%endblock%}

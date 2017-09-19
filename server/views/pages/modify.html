@@ -1,0 +1,41 @@
+{%extends "layout/layout.html"%}
+{%block content%}
+
+<div class="container">
+	<h3> รายงานเรื่อง {{data.title}}</h3>
+
+	<form method="post" action="/cksave">
+	<input type="hidden" name="RP_id" id="RP_id" value={{data.id}} />
+	<input type="hidden" name="title" id="title" value={{data.title}} />
+	<input type="hidden" name="project_id" id="project_id" value={{data.projectId}} />
+    
+    {% if data.description %}
+      <textarea name="description" id="description" rows="10" cols="80">
+    	{{data.description}}
+      </textarea>
+    {% else %}
+      <textarea name="description" id="description" rows="10" cols="80">
+        This is my textarea to be replaced with CKEditor.
+      </textarea>
+    {% endif %}
+    
+    </br>
+    <div>
+      <button type="submit" id="save"><span>บันทึก</span></button>
+    </div>
+	</form>
+</div>
+
+<!-- ckeditor -->
+<script>
+ 
+ 	CKEDITOR.replace( 'description', {
+      //uiColor: '#14B8C4', // set up ckeditor color 
+      /*toolbar: [
+      	{name: 'clipboard', items: ['Cut', 'Copy', 'Paste']}
+      ]*/
+    });
+ 	
+ </script> 
+
+{%endblock%}
