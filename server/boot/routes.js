@@ -495,8 +495,8 @@ app.get('/form',function(req, res, next) {
 /* ---------edit send form----------- */
 
 app.post('/filter_form1', function(req,res,next){
-  var office = req.body.InputOfficeName;
-  var agency = req.body.InputAgencyName;
+  var office_id = req.body.InputOfficeName;
+  var agency_id = req.body.InputAgencyName;
   var user = {};
     user.email = req.cookies['email'];
     user.username = req.cookies['username'];
@@ -504,17 +504,17 @@ app.post('/filter_form1', function(req,res,next){
     user.agencyName = req.cookies['agency_Name'];
     console.log('filter_form1');
     console.log(req.body);
+
     if(req.cookies['access_token']){
       form1.find({
         where:{and: [
-          {"office_name": office}, 
-          {"agency_name" : agency}
+          {"office_id": office_id}, 
+          {"agency_id" : agency_id}
         ]},
-        include: {
-          relation: 'Uploads'
-        }
+        include: ['Uploads','rid_agency', 'rid_office']
       },function(err,data){
         var lists = data; 
+        console.log(data);
         res.render('pages/view_form1.html', {user:user, lists:lists});
       }); 
     }else{
@@ -551,6 +551,8 @@ app.post('/filter_form2', function(req,res,next){
 app.post('/add_form1', upload.any(), function(req, res, next){
   console.log(req.files.length);
   //var date = moment().local('th').format('DD-MMMM-YYYY, h:mm:ss a'); 
+  var office = req.body.InputOfficeName;
+  var agency = req.body.InputAgencyName;
   var user = {};
     user.email = req.cookies['email'];
     user.username = req.cookies['username'];
@@ -558,13 +560,13 @@ app.post('/add_form1', upload.any(), function(req, res, next){
     user.agencyName = req.cookies['agency_Name'];
   if(req.cookies['access_token']){
     var date = moment().local('th').format('DD-MMMM-YYYY, h:mm:ss a'); 
+    //console.log(req.body);
+    
     if(req.files.length == 0){
       console.log("photo 0 : "+req.files.length);
       console.log('no photo');
     var theForm1 = {
       "id" : req.body.id,
-      "office_name" : req.body.InputOfficeName,
-      "agency_name" : req.body.InputAgencyName,
       "province" : req.body.province,
       "SPK_time" : req.body.SPK_time,
       "SPK_person" : req.body.SPK_person,
@@ -576,19 +578,27 @@ app.post('/add_form1', upload.any(), function(req, res, next){
       "user_edit" : req.cookies['username']
     }
     form1.upsert(theForm1, function(err, callback){ 
-      form1.find({
-        where:{and: [
-          {"office_name": req.body.InputOfficeName}, 
-          {"agency_name" : req.body.InputAgencyName}
-        ]},
-        include: {
-          relation: 'Uploads'
-        }
-      },function(err,data){
-        var lists = data; 
-        console.log(data);
-        res.render('pages/view_form1.html', {user:user, lists:lists});
-      }); 
+      console.log("add Form1 no photo : "+JSON.stringify(callback));
+      rid_office.find({where:{"office_name":office}}, function(err,callback){
+        var rid = {};
+        rid.office = callback;
+        rid_agency.find({where:{"agency_name":agency}}, function(err,callback){
+          rid.agency = callback;
+          console.log(rid);
+          console.log("office id : "+rid.office[0].id);
+          form1.find({
+            where:{and: [
+              {"office_id": rid.office[0].id}, 
+              {"agency_id" : rid.agency[0].id}
+            ]},
+            include: ['Uploads','rid_agency', 'rid_office']
+          },function(err,data){
+            var lists = data; 
+            console.log(data);
+            res.render('pages/view_form1.html', {user:user, lists:lists});
+          });
+        });
+      });
     });
   } // if files = 0
   if(req.files.length > 0){
@@ -596,8 +606,6 @@ app.post('/add_form1', upload.any(), function(req, res, next){
       console.log(req.files[0].originalname);
       var theForm1 = {
       "id" : req.body.id,
-      "office_name" : req.body.InputOfficeName,
-      "agency_name" : req.body.InputAgencyName,
       "province" : req.body.province,
       "SPK_time" : req.body.SPK_time,
       "SPK_person" : req.body.SPK_person,
@@ -620,22 +628,30 @@ app.post('/add_form1', upload.any(), function(req, res, next){
           path : "uploads/"+ moment().format('MMMM') + '/' + req.files[i].filename,
           form1_id : id
         }
-        console.log(pack);
-        uploads.upsert(pack,function(err,callback){
-          console.log(callback);
-          form1.find({
-            where:{and: [
-              {"office_name": req.body.InputOfficeName}, 
-              {"agency_name" : req.body.InputAgencyName}
-            ]},
-            include: {
-              relation: 'Uploads'
-            }
-          },function(err,data){
-            var lists = data; 
-            res.render('pages/view_form1.html', {user:user, lists:lists});
+      console.log(pack);
+      uploads.upsert(pack,function(err,callback){
+        console.log("add form1 have photo : "+callback);
+        rid_office.find({where:{"office_name":office}}, function(err,callback){
+          var rid = {};
+          rid.office = callback;
+          rid_agency.find({where:{"agency_name":agency}}, function(err,callback){
+            rid.agency = callback;
+            console.log(rid);
+            console.log("office id : "+rid.office[0].id);
+            form1.find({
+              where:{and: [
+                {"office_id": rid.office[0].id}, 
+                {"agency_id" : rid.agency[0].id}
+              ]},
+              include: ['Uploads','rid_agency', 'rid_office']
+            },function(err,data){
+              var lists = data; 
+              console.log(data);
+              res.render('pages/view_form1.html', {user:user, lists:lists});
+            });
           });
-        });   
+        });
+      }); 
       }
    
       });
@@ -706,13 +722,11 @@ app.get('/view_form',function(req, res, next) {
     if(view == 'form1'){
       console.log('form1');
       form1.find({
-        include: {
-          relation: 'Uploads'
-        }
+        include: ['Uploads','rid_agency', 'rid_office']
       },function(err,data){
         var lists = data; 
-        //console.log(data);  
-        res.render('pages/view_form1.html', { user: user ,lists: lists});
+        console.log(data);
+        res.render('pages/view_form1.html', {user:user, lists:lists});
       });
 
     }if(view == 'form2'){
@@ -760,7 +774,13 @@ app.get('/view_form',function(req, res, next) {
 app.get('/chkform1', function(req,res) {
   console.log(req.query);
   var id = req.query.id; 
-  form1.findById(id, function(err, callback){
+   form1.findById(id, {
+      include: ['Uploads','rid_agency', 'rid_office']
+    },function(err,data){
+      console.log(data);
+      res.send(data);
+    });
+  /*form1.findById(id, function(err, callback){
     console.log(callback);
     var data = {};
     data.form1 = callback;
@@ -770,7 +790,7 @@ app.get('/chkform1', function(req,res) {
       console.log(data);
       res.send(data);
     });   
-  });
+  });*/
 });
 
 /* ------------- form2 ----------------- */

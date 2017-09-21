@@ -11,7 +11,13 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "Form1": {
+      "type": "hasMany",
+      "model": "Form1",
+      "foreignKey": "office_id"
+    }
+  },
   "acls": [],
   "methods": {}
 }

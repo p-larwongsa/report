@@ -5,10 +5,6 @@
 <h4 align="center">โครงการสร้างการรับรู้และเสริมสร้างการเรียนรู้แก่เกษตรกร เพื่อลดความเสี่ยงจากภัยแล้ง</h4>
 <hr>
 
-<div  align="right">
-      <button type="button" class="btn btn-info" id="add_form1">เพิ่ม</button>
-  </div>
-  </br>
 <table id="form1table" name="form1table" class="display" cellspacing="0" width="100%">
     <thead>
       <tr>
@@ -260,8 +256,16 @@
     $('#form1table').DataTable({
       data: obj,
       "columns": [
-      { data : "office_name" },
-      { data : "agency_name" }, 
+      //{ data : "office_name" },
+      //{ data : "agency_name" }, 
+      { data : "rid_office", render:function(data){
+          return data.office_name;
+        } 
+      },
+      { data : "rid_agency", render:function(data){
+          return data.agency_name;
+        }  
+      }, 
       { data : "province" },
       { data : "form1_date" },
       { data : "SPK_time" },
@@ -295,25 +299,6 @@
 
     });
 
-
-$("#add_form1").click(function(){
-  $('#imgs').empty();
-  $('#form1').modal('show');
-  $('.modal-title').text('เพิ่มรายงาน');
-  $('#id').val('');
-  $('#date1').selectpicker('val','');
-  $('#province').selectpicker('val', '');
-  $('#InputOfficeName').val('{{user.officeName}}');
-  $('#InputAgencyName').val('{{user.agencyName}}');
-  $( '#check1' ).prop( "checked", false );      
-  $( '#check2' ).prop( "checked", false );
-  $('#SPK_time').val('');
-  $('#SPK_person').val('');   
-  $('#JMC_time').val('');
-  $('#JMC_person').val('');
-  $('#InputNews').val('');
-});
-
   function deleteForm1(id) {
     $.ajax({
         url: '/chkform1',
@@ -344,24 +329,25 @@ $("#add_form1").click(function(){
       dataType: 'json',
      success: function(response) {
        console.log(response);
+       //console.log(response.Uploads[0]);
         $('#imgs').empty();
         $('#form1').modal('show');
         $('.modal-title').text('แก้ไขรายงาน');
-        $('#reportTime').val(response.form1.form1_date);
-        $('#id').val(response.form1.id);
-        $('#InputOfficeName').val(response.form1.office_name);
-        $('#InputAgencyName').val(response.form1.agency_name);
-        $('#province').selectpicker('val', response.form1.province);
+        $('#reportTime').val(response.form1_date);
+        $('#id').val(response.id);
+        $('#InputOfficeName').val(response.rid_office.office_name);
+        $('#InputAgencyName').val(response.rid_agency.agency_name);
+        $('#province').selectpicker('val', response.province);
         //$( '#check1' ).prop( "checked", true );      
         //$( '#check2' ).prop( "checked", true );
-        $('#SPK_time').val(response.form1.SPK_time);
-        $('#SPK_person').val(response.form1.SPK_person);
-        $('#JMC_time').val(response.form1.JMC_time);
-        $('#JMC_person').val(response.form1.JMC_person);
-        $('#InputNews').val(response.form1.news);
-        for(var j=0; j<response.image.length; j++){
-            console.log(response.image[j].form1_id);
-            $('.div_image').append('  <img src="' + response.image[j].path + '  " style="width: 200px; height: 100px"/>');                  
+        $('#SPK_time').val(response.SPK_time);
+        $('#SPK_person').val(response.SPK_person);
+        $('#JMC_time').val(response.JMC_time);
+        $('#JMC_person').val(response.JMC_person);
+        $('#InputNews').val(response.news);
+        for(var j=0; j<response.Uploads.length; j++){
+            console.log(response.Uploads[j].form1_id);
+            $('.div_image').append('  <img src="' + response.Uploads[j].path + '  " style="width: 200px; height: 100px"/>');                  
           }
         }
       });

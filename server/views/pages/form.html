@@ -12,7 +12,7 @@
     </div>-->
   </br>
   <table class="table table-striped">
-    <tr>
+    <tr> 
  
         <th>โครงการ</th>
         <th>รายงานทั้งหมด</th>
@@ -56,7 +56,7 @@
             <select class="selectpicker" id="InputOfficeName" name="InputOfficeName" data-live-search="true">        
               <option value="" selected>--------- เลือกหน่วยงาน ---------</option>
               {% for list in offices%}
-              <option value="{{list.office_name}}">{{list.office_name}}</option>
+              <option value="{{list.id}}">{{list.office_name}}</option>
               {% endfor %}
             </select>
           </div> 
@@ -65,7 +65,7 @@
             <select class="selectpicker" id="InputAgencyName" name="InputAgencyName" data-live-search="true">        
               <option value="" selected>--------- เลือกโครงการ ---------</option>
               {% for list in agencys%}
-              <option value="{{list.agency_name}}">{{list.agency_name}}</option>
+              <option value="{{list.id}}">{{list.agency_name}}</option>
               {% endfor %}
             </select>
           </div> 
