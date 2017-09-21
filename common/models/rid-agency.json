@@ -15,7 +15,12 @@
     "Form1": {
       "type": "hasMany",
       "model": "Form1",
-      "foreignKey": "office_id"
+      "foreignKey": "agency_id"
+    },
+    "Form2": {
+      "type": "hasMany",
+      "model": "Form2",
+      "foreignKey": "agency_id"
     }
   },
   "acls": [],

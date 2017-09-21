@@ -310,15 +310,12 @@
           $('#delForm1').modal('show');
           $('.modal-title').text('ลบรายงาน');
           $('#Delbody').text('ยืนยันการลบรายงานนี้');
-          $('#delId').val(response.form1.id);
+          $('#delId').val(response.id);
           $('#action').val('ลบ');
         }
     });
   }
 
-  $('#btn_upload').click(function() {
-    location.reload();
-  });
   
   function edit(id){
     $.ajax({

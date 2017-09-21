@@ -523,23 +523,24 @@ app.post('/filter_form1', function(req,res,next){
 });
 
 app.post('/filter_form2', function(req,res,next){
-  var office = req.body.InputOfficeName;
-  var agency = req.body.InputAgencyName;
+  var office_id = req.body.InputOfficeName;
+  var agency_id = req.body.InputAgencyName;
   var user = {};
     user.email = req.cookies['email'];
     user.username = req.cookies['username'];
     user.officeName = req.cookies['office_Name'];
     user.agencyName = req.cookies['agency_Name'];
     console.log('filter_form2');
-    console.log(req.body);
     if(req.cookies['access_token']){
       form2.find({
         where:{and: [
-          {"office_name": office}, 
-          {"agency_name" : agency}
-        ]}
+          {"office_id": office_id}, 
+          {"agency_id" : agency_id}
+        ]},
+        include: ['rid_agency', 'rid_office']
       },function(err,data){
         var lists = data; 
+        console.log(data);
         res.render('pages/view_form2.html', {user:user, lists:lists});
       }); 
     }else{
@@ -676,8 +677,6 @@ app.post('/add_form2', function(req, res, next){
     var theForm2 = {
       "id": req.body.id,
       "form2_date" : req.body.reportTime,
-      "office_name" : req.body.InputOfficeName,
-      "agency_name" : req.body.InputAgencyName,
       "introName" : req.body.introName,
       "firstName" : req.body.firstName,
       "lastName" : req.body.lastName,
@@ -695,14 +694,25 @@ app.post('/add_form2', function(req, res, next){
     };
 
     form2.upsert(theForm2, function(err, callback) {
-      form2.find({
-        where:{and: [
-          {"office_name": req.body.InputOfficeName}, 
-          {"agency_name" : req.body.InputAgencyName}
-        ]}
-      },function(err,data){
-        var lists = data; 
-        res.render('pages/view_form2.html', {user:user, lists:lists});
+      rid_office.find({where:{"office_name":office}}, function(err,callback){
+        var rid = {};
+        rid.office = callback;
+        rid_agency.find({where:{"agency_name":agency}}, function(err,callback){
+          rid.agency = callback;
+          console.log(rid);
+          console.log("office id : "+rid.office[0].id);
+          form2.find({
+            where:{and: [
+              {"office_id": rid.office[0].id}, 
+              {"agency_id" : rid.agency[0].id}
+            ]},
+            include: ['rid_agency', 'rid_office']
+          },function(err,data){
+            var lists = data; 
+            console.log(data);
+            res.render('pages/view_form2.html', {user:user, lists:lists});
+          });
+        });
       });
     });
  
@@ -733,7 +743,6 @@ app.get('/view_form',function(req, res, next) {
         console.log('form2');
         form2.find({},function(err,data){
           var lists = data;
-          //console.log(lists);
           res.render('pages/view_form2.html', { user: user ,lists : lists});
         });
       }
@@ -780,24 +789,15 @@ app.get('/chkform1', function(req,res) {
       console.log(data);
       res.send(data);
     });
-  /*form1.findById(id, function(err, callback){
-    console.log(callback);
-    var data = {};
-    data.form1 = callback;
-    var filter = { where: { "form1_id" : req.query.id}};
-    uploads.find(filter, function(err,callback){
-      data.image = callback;
-      console.log(data);
-      res.send(data);
-    });   
-  });*/
 });
 
 /* ------------- form2 ----------------- */
 app.get('/chkform2', function(req,res) {
   console.log(req.query);
   var id = req.query.id; 
-  form2.findById(id, function(err, callback){
+  form2.findById(id,{
+    include: ['rid_agency', 'rid_office']
+  },function(err, callback){
     console.log(callback);
     var data = callback;
     res.send(data);

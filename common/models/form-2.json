@@ -6,11 +6,11 @@
     "validateUpsert": true
   },
   "properties": {
-    "office_name": {
-      "type": "string"
+    "office_id": {
+      "type": "number"
     },
-    "agency_name": {
-      "type": "string"
+    "agency_id": {
+      "type": "number"
     },
     "introName": {
       "type": "string"
@@ -59,7 +59,18 @@
     }
   },
   "validations": [],
-  "relations": {},
+  "relations": {
+    "rid_office": {
+      "type": "belongsTo",
+      "model": "rid_office",
+      "foreignKey": "office_id"
+    },
+    "rid_agency": {
+      "type": "belongsTo",
+      "model": "rid_agency",
+      "foreignKey": "agency_id"
+    }
+  },
   "acls": [],
   "methods": {}
 }
